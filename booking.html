@@ -101,28 +101,65 @@
 
   <div id="app-footer"></div>
 
-  <script>
-  // تحميل الشريطين
-  (async()=>{
-    async function inject(targetId, url){
-      const target=document.getElementById(targetId);
-      if(!target) return;
-      const res=await fetch(url);
-      if(res.ok) target.innerHTML=await res.text();
-    }
-    await Promise.all([
-      inject('app-header','./header.html'),
-      inject('app-footer','./footer.html')
-    ]);
-  })();
+  <!-- ✅ Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-  // معالجة النموذج
-  const form=document.getElementById('bookingForm');
-  form.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    alert('✅ تم حجز موعدك بنجاح! سنتواصل معك قريباً.');
-    form.reset();
-  });
+    // ✅ إعداد Firebase باستخدام بياناتك
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEHv4azfIALMxtqo5LPgw9JY7TOci2Sto",
+      authDomain: "laf-bookings.firebaseapp.com",
+      projectId: "laf-bookings",
+      storageBucket: "laf-bookings.firebasestorage.app",
+      messagingSenderId: "1030907984145",
+      appId: "1:1030907984145:web:cbaab9c990acce41a334b0"
+    };
+
+    // ✅ تهيئة Firebase و Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ✅ تحميل الشريطين
+    (async()=>{
+      async function inject(targetId, url){
+        const target=document.getElementById(targetId);
+        if(!target) return;
+        const res=await fetch(url);
+        if(res.ok) target.innerHTML=await res.text();
+      }
+      await Promise.all([
+        inject('app-header','./header.html'),
+        inject('app-footer','./footer.html')
+      ]);
+    })();
+
+    // ✅ معالجة إرسال النموذج
+    const form = document.getElementById('bookingForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // قراءة البيانات من الحقول
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        service: form.service.value,
+        date: form.date.value,
+        time: form.time.value,
+        notes: form.notes.value.trim(),
+        createdAt: serverTimestamp()
+      };
+
+      try {
+        await addDoc(collection(db, "bookings"), data);
+        alert('✅ تم حفظ الحجز بنجاح! سنتواصل معك قريباً.');
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert('❌ حدث خطأ أثناء حفظ الحجز. حاول مرة أخرى.');
+      }
+    });
   </script>
 </body>
 </html>
