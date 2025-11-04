@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src https://fonts.gstatic.com;
+                 img-src 'self' data:;
+                 media-src 'self';
+                 script-src 'self' 'unsafe-inline';
+                 connect-src 'self';
+                 object-src 'none'">
+  <title>لاف — ابتكار المجسّمات الإبداعية</title>
+
+  <!-- خط Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0f; --fg:#ffffff; --muted:rgba(255,255,255,.75);
+      --card: rgba(255,255,255,.06); --stroke: rgba(255,255,255,.10);
+      --accent1:#7CF7D4; --accent2:#7AA8FF; --accent3:#E0A1FF;
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: var(--bg); color: var(--fg);
+    }
+    a{ color: inherit; text-decoration:none; }
+    .container{ max-width:1200px; margin:auto; padding:1rem; }
+
+    /* ===== HERO / VIDEO SECTION ===== */
+    .hero{
+      position: relative;
+      width: 100%;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .hero video{
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.45) contrast(1.1) saturate(1.2);
+      z-index: 0;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.45) 20%, rgba(0,0,0,.85) 90%);
+      z-index:1;
+    }
+    .hero-content{
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      max-width: 780px;
+      padding: 2rem 1rem;
+    }
+    .hero-content .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.35rem .75rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.12);
+      font-weight:700;
+      font-size:.9rem;
+      margin-bottom: 1rem;
+    }
+    .hero-content h1{
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      margin:.4rem 0 .7rem;
+      line-height:1.25;
+    }
+    .hero-content p{
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height:1.7;
+      margin-bottom:1.2rem;
+    }
+    .hero-content .cta{
+      display:flex;
+      gap:.75rem;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .btn{
+      padding:.9rem 1.2rem;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-weight:700;
+      transition: all .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background:rgba(255,255,255,.18);
+    }
+    .btn.primary{
+      background:linear-gradient(135deg,var(--accent1),var(--accent2) 45%,var(--accent3));
+      border:none; color:#0b0b0f;
+      box-shadow:0 10px 28px rgba(122,168,255,.35);
+    }
+
+    /* ===== ABOUT / CARDS ===== */
+    .cards{
+      display:grid;
+      gap:1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      margin-top:2rem;
+    }
+    .card{
+      padding:1.2rem;
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: var(--card);
+      backdrop-filter: blur(6px);
+      transition: transform .15s ease, border .2s ease;
+    }
+    .card:hover{ transform: translateY(-2px); border-color:rgba(124,247,212,.4); }
+    .card h3{ margin:.3rem 0 .5rem; font-size:1.15rem; }
+    .card p{ color:var(--muted); margin:0; }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:768px){
+      .hero-content h1{font-size:2.1rem;}
+      .hero-content p{font-size:1rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- الهيدر -->
+  <div id="app-header"></div>
+
+  <main>
+    <!-- HERO with video -->
+    <section class="hero" id="top">
+      <video autoplay muted loop playsinline>
+        <source src="media/videoplayback.mp4" type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+      </video>
+
+      <div class="hero-content">
+        <span class="badge">جيل 2025 ✦ إبداع ثلاثي الأبعاد</span>
+        <h1>من الفكرة إلى مجسّم يروي قصتك</h1>
+        <p>
+          "لاف" تجمع بين التصميم الفني والدقّة الصناعية، لتقدّم مجسّمات وهدايا تنفيذية تبرز هوية علامتك بروح عصرية وجودة إنتاجية استثنائية.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">ابدأ مشروعك الآن</a>
+          <a class="btn" href="#gallery">تصفح أعمالنا</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <div class="cards">
+        <article class="card">
+          <h3>تصميم مخصّص</h3>
+          <p>نحوّل أفكارك إلى نموذج ثلاثي الأبعاد قابل للتعديل والمراجعة قبل التنفيذ.</p>
+        </article>
+        <article class="card">
+          <h3>مواد مختارة</h3>
+          <p>أكريليك، خشب، جلد، طباعة ثلاثية الأبعاد—نختار الخامة الأنسب لمشروعك.</p>
+        </article>
+        <article class="card">
+          <h3>تنفيذ سريع</h3>
+          <p>خط إنتاج ذكي يضمن دقة عالية ومواعيد تسليم موثوقة.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="container" style="margin-top:3rem;">
+      <h2 style="margin:0 0 .5rem;">المعرض</h2>
+      <p style="color:var(--muted);margin:0 0 1rem;">لقطات من أعمالنا (أضف صورك لاحقاً).</p>
+      <div class="cards">
+        <div class="card"><p>عمل 1</p></div>
+        <div class="card"><p>عمل 2</p></div>
+        <div class="card"><p>عمل 3</p></div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="container" style="margin-top:3rem;">
+      <h2 style="margin:0 0 .5rem;">العملية</h2>
+      <ol style="color:var(--muted); line-height:1.7;">
+        <li>استكشاف الفكرة والمتطلبات.</li>
+        <li>نموذج ثلاثي الأبعاد وموافقة العميل.</li>
+        <li>اختيار المواد والتصنيع.</li>
+        <li>الفحص النهائي والتسليم.</li>
+      </ol>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container" style="margin-top:3rem; margin-bottom:3rem;">
+      <h2 style="margin:0 0 .5rem;">ابدأ الآن</h2>
+      <form id="contactForm" style="display:grid; gap:.6rem; grid-template-columns: repeat(12,1fr);">
+        <input required name="name" placeholder="الاسم الكامل" class="card" style="grid-column: span 6; padding:.9rem;" />
+        <input required name="email" type="email" placeholder="البريد الإلكتروني" class="card" style="grid-column: span 6; padding:.9rem;" />
+        <textarea required name="idea" placeholder="صِف فكرتك" class="card" style="grid-column: span 12; padding:.9rem; min-height:120px;"></textarea>
+        <button class="btn primary" style="grid-column: span 12; width:fit-content;">إرسال</button>
+      </form>
+      <p id="formMsg" style="margin-top:.6rem; color:var(--muted);"></p>
+    </section>
+  </main>
+
+  <!-- الفوتر -->
+  <div id="app-footer"></div>
+
+  <script>
+  // تحميل الهيدر والفوتر
+  (async () => {
+    async function inject(id, file){
+      const el = document.getElementById(id);
+      if (!el) return;
+      try{
+        const res = await fetch(file);
+        if (!res.ok) throw new Error();
+        el.innerHTML = await res.text();
+      }catch{
+        el.innerHTML = '<div style="padding:1rem;color:#ffb3b3;border:1px dashed rgba(255,0,0,.35);border-radius:12px;">تعذر تحميل '+file+'</div>';
+      }
+    }
+    await Promise.all([
+      inject('app-header','./header.html'),
+      inject('app-footer','./footer.html')
+    ]);
+  })();
+
+  // فورم بسيط
+  (() => {
+    const form = document.getElementById('contactForm');
+    const msg  = document.getElementById('formMsg');
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      if(!/^[^@]+@[^@]+\.[^@]+$/.test(data.email)){
+        msg.textContent='فضلاً أدخل بريد إلكتروني صحيح.'; return;
+      }
+      msg.textContent='تم استلام طلبك بنجاح 👌';
+      form.reset();
+    });
+  })();
+  </script>
+</body>
+</html>

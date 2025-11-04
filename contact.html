@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>اتصل بنا | لاف</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0f; --fg:#fff; --muted:rgba(255,255,255,.75);
+      --accent1:#7CF7D4; --accent2:#7AA8FF; --accent3:#E0A1FF;
+      --stroke:rgba(255,255,255,.1);
+      --card:rgba(255,255,255,.06);
+    }
+    body{
+      margin:0;
+      font-family:'Tajawal',sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    main{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .container{
+      max-width:900px;
+      margin:auto;
+      padding:2rem 1rem;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+    h1{
+      font-weight:800;
+      font-size:clamp(2rem,5vw,3rem);
+      background:linear-gradient(135deg,var(--accent1),var(--accent2),var(--accent3));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:1rem;
+    }
+    p{ color:var(--muted); font-size:1.1rem; margin-bottom:1.5rem; }
+
+    .info{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      margin-bottom:2rem;
+      width:100%;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      padding:1.2rem;
+      backdrop-filter:blur(8px);
+    }
+    .card h3{margin-top:0;}
+    .form{
+      width:100%;
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      padding:1.5rem;
+    }
+    .form input,.form textarea{
+      width:100%;
+      border:none;
+      border-radius:10px;
+      padding:.9rem;
+      margin-bottom:.9rem;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-family:inherit;
+      font-size:1rem;
+    }
+    .form button{
+      background:linear-gradient(135deg,var(--accent1),var(--accent2) 50%,var(--accent3));
+      border:none;
+      padding:.9rem 1.3rem;
+      font-weight:800;
+      border-radius:12px;
+      cursor:pointer;
+      color:#0b0b0f;
+      box-shadow:0 6px 18px rgba(122,168,255,.3);
+    }
+    .back{
+      margin-top:1.5rem;
+      display:inline-block;
+      padding:.7rem 1.2rem;
+      border:1px solid var(--stroke);
+      border-radius:12px;
+      color:var(--fg);
+      text-decoration:none;
+      transition:.2s;
+    }
+    .back:hover{background:rgba(255,255,255,.1);}
+  </style>
+</head>
+<body>
+
+  <!-- الشريط العلوي -->
+  <div id="app-header" aria-live="polite"></div>
+
+  <main>
+    <div class="container">
+      <h1>تواصل معنا</h1>
+      <p>يسعدنا الاستماع إليك — سواء كانت فكرة جديدة، مشروع شراكة، أو استفسار بسيط.  
+      فريق <strong>لاف</strong> جاهز دائمًا لدعمك وتحويل فكرتك إلى واقع مدهش.</p>
+
+      <div class="info">
+        <div class="card">
+          <h3>📍 الموقع</h3>
+          <p>المملكة العربية السعودية — ينبع</p>
+        </div>
+        <div class="card">
+          <h3>📞 الهاتف</h3>
+          <p><a href="tel:+966500000000" style="color:#7CF7D4;">+966 50 000 0000</a></p>
+        </div>
+        <div class="card">
+          <h3>📧 البريد الإلكتروني</h3>
+          <p><a href="mailto:info@laf.sa" style="color:#7AA8FF;">info@laf.sa</a></p>
+        </div>
+      </div>
+
+      <form class="form" id="contactForm">
+        <input type="text" name="name" placeholder="الاسم الكامل" required>
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+        <textarea name="message" placeholder="رسالتك أو استفسارك" rows="5" required></textarea>
+        <button type="submit">إرسال الرسالة</button>
+      </form>
+
+      <a href="index.html" class="back">⬅ العودة إلى الرئيسية</a>
+    </div>
+  </main>
+
+  <!-- الشريط السفلي -->
+  <div id="app-footer" aria-live="polite"></div>
+
+  <script>
+  // دالة لاستدعاء ملفات الهيدر والفوتر
+  async function injectFragment(id, file){
+    const el = document.getElementById(id);
+    if (!el) return;
+    try{
+      const res = await fetch(file);
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      el.innerHTML = await res.text();
+    }catch(e){
+      console.error("فشل تحميل:", file, e);
+      el.innerHTML = `<div style="padding:1rem;color:#ffb3b3;">
+        ⚠️ لم يتم تحميل ${file} — تأكد من المسار وتشغيل الصفحة عبر خادم محلي.
+      </div>`;
+    }
+  }
+
+  // استدعاء الهيدر والفوتر
+  (async () => {
+    await Promise.all([
+      injectFragment('app-header','header.html'),
+      injectFragment('app-footer','footer.html')
+    ]);
+  })();
+
+  // معالجة النموذج
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    alert('تم إرسال رسالتك بنجاح 🎉');
+    form.reset();
+  });
+  </script>
+</body>
+</html>

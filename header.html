@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* ===== Header Styles Scoped ===== */
+    .laf-header {
+      --bg: rgba(18,18,22,.55);
+      --stroke: rgba(255,255,255,.08);
+      --blur: 10px;
+      --accent1:#7CF7D4; --accent2:#7AA8FF; --accent3:#E0A1FF;
+    }
+
+    .laf-header {
+      position: relative;
+      z-index: 100;
+      font-family: "Tajawal", system-ui, sans-serif;
+    }
+
+    .laf-header .shell {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(var(--blur));
+      background: var(--bg);
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .laf-header .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: .75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* ===== Logo + Title ===== */
+    .laf-brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      text-decoration: none;
+      color: #fff;
+    }
+    .laf-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), rgba(255,255,255,0) 70%);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 0 18px rgba(122,168,255,.25);
+    }
+    .laf-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .laf-title {
+      font-weight: 800;
+      letter-spacing: .4px;
+      color: #fff;
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    /* ===== Navigation ===== */
+    .laf-nav {
+      margin-inline-start: auto;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .laf-link {
+      padding: .55rem .9rem;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: .95rem;
+      border: 1px solid transparent;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .laf-link:hover {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.12);
+      transform: translateY(-1px);
+    }
+    .laf-cta {
+      background: linear-gradient(135deg,var(--accent1),var(--accent2) 50%,var(--accent3));
+      color: #0b0b0f;
+      border: none;
+      font-weight: 800;
+      box-shadow: 0 6px 18px rgba(122,168,255,.35);
+    }
+
+    /* ===== Burger Menu ===== */
+    .laf-burger {
+      display: none;
+      background: transparent;
+      border: none;
+      color: #fff;
+      border-radius: 12px;
+      padding: .45rem;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform .2s ease;
+    }
+    .laf-burger:hover { transform: scale(1.1); }
+
+    /* ===== Mobile Menu ===== */
+    @media (max-width: 860px) {
+      .laf-burger {
+        display: block;
+        margin-inline-start: auto;
+      }
+
+      .laf-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 75%;
+        max-width: 320px;
+        background: rgba(18,18,22,.95);
+        backdrop-filter: blur(18px);
+        border-left: 1px solid rgba(255,255,255,.08);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-top: 80px;
+        padding-inline: 1.5rem;
+        gap: .7rem;
+        transform: translateX(100%);
+        transition: transform .35s ease;
+        z-index: 101;
+      }
+
+      .laf-nav.show {
+        transform: translateX(0);
+      }
+
+      /* Overlay background when menu is open */
+      .laf-overlay {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.55);
+        backdrop-filter: blur(2px);
+        z-index: 90;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s ease;
+      }
+      .laf-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .laf-link {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+        padding: .75rem 1rem;
+        font-size: 1.05rem;
+      }
+
+      .laf-cta {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="laf-header" role="banner" aria-label="الشريط العلوي">
+  <div class="shell">
+    <div class="container">
+      <a class="laf-brand" href="index.html" aria-label="لاف - الصفحة الرئيسية">
+        <div class="laf-logo">
+          <img src="media/laf.svg" alt="شعار لاف" />
+        </div>
+        <div class="laf-title">لاف — ابتكار المجسّمات الإبداعية</div>
+      </a>
+
+      <!-- قائمة التنقل -->
+      <nav class="laf-nav" aria-label="روابط رئيسية">
+        <a class="laf-link" href="index.html#about">عن لاف</a>
+        <a class="laf-link" href="index.html#gallery">المعرض</a>
+        <a class="laf-link" href="index.html#process">العملية</a>
+        <a class="laf-link" href="contact.html">اتصل بنا</a>
+        <a class="laf-link laf-cta" href="index.html#contact">ابدأ مشروعك</a>
+      </nav>
+
+      <!-- زر البرجر -->
+      <button class="laf-burger" type="button" aria-label="القائمة">
+        ☰
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- خلفية التعتيم عند فتح القائمة -->
+<div class="laf-overlay" id="menuOverlay"></div>
+
+<script>
+(() => {
+  const burger = document.querySelector('.laf-burger');
+  const nav = document.querySelector('.laf-nav');
+  const overlay = document.getElementById('menuOverlay');
+
+  function toggleMenu(show) {
+    nav.classList.toggle('show', show);
+    overlay.classList.toggle('show', show);
+  }
+
+  burger.addEventListener('click', () => {
+    const open = !nav.classList.contains('show');
+    toggleMenu(open);
+  });
+
+  overlay.addEventListener('click', () => toggleMenu(false));
+})();
+</script>
+</body>
+</html>
