@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    /* ===== Header Styles Scoped ===== */
     .laf-header {
       --bg: rgba(18,18,22,.55);
       --stroke: rgba(255,255,255,.08);
@@ -35,7 +34,6 @@
       gap: 1rem;
     }
 
-    /* ===== Logo + Title ===== */
     .laf-brand {
       display: flex;
       align-items: center;
@@ -69,7 +67,6 @@
       line-height: 1.2;
     }
 
-    /* ===== Navigation ===== */
     .laf-nav {
       margin-inline-start: auto;
       display: flex;
@@ -99,7 +96,6 @@
       box-shadow: 0 6px 18px rgba(122,168,255,.35);
     }
 
-    /* ===== Burger Menu ===== */
     .laf-burger {
       display: none;
       background: transparent;
@@ -113,20 +109,13 @@
     }
     .laf-burger:hover { transform: scale(1.1); }
 
-    /* ===== Mobile Menu ===== */
     @media (max-width: 860px) {
-      .laf-burger {
-        display: block;
-        margin-inline-start: auto;
-      }
-
+      .laf-burger { display: block; margin-inline-start: auto; }
       .laf-nav {
         position: fixed;
-        top: 0;
-        right: 0;
+        top: 0; right: 0;
         height: 100vh;
-        width: 75%;
-        max-width: 320px;
+        width: 75%; max-width: 320px;
         background: rgba(18,18,22,.95);
         backdrop-filter: blur(18px);
         border-left: 1px solid rgba(255,255,255,.08);
@@ -140,12 +129,7 @@
         transition: transform .35s ease;
         z-index: 101;
       }
-
-      .laf-nav.show {
-        transform: translateX(0);
-      }
-
-      /* Overlay background when menu is open */
+      .laf-nav.show { transform: translateX(0); }
       .laf-overlay {
         content: "";
         position: fixed;
@@ -157,11 +141,7 @@
         visibility: hidden;
         transition: opacity .3s ease;
       }
-      .laf-overlay.show {
-        opacity: 1;
-        visibility: visible;
-      }
-
+      .laf-overlay.show { opacity: 1; visibility: visible; }
       .laf-link {
         display: block;
         width: 100%;
@@ -169,11 +149,7 @@
         padding: .75rem 1rem;
         font-size: 1.05rem;
       }
-
-      .laf-cta {
-        width: 100%;
-        text-align: center;
-      }
+      .laf-cta { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -188,24 +164,19 @@
         <div class="laf-title">لاف — ابتكار المجسّمات الإبداعية</div>
       </a>
 
-      <!-- قائمة التنقل -->
       <nav class="laf-nav" aria-label="روابط رئيسية">
         <a class="laf-link" href="index.html#about">عن لاف</a>
         <a class="laf-link" href="index.html#gallery">المعرض</a>
         <a class="laf-link" href="index.html#process">العملية</a>
         <a class="laf-link" href="contact.html">اتصل بنا</a>
+        <a class="laf-link" href="booking.html">حجوزات</a>
         <a class="laf-link laf-cta" href="index.html#contact">ابدأ مشروعك</a>
       </nav>
 
-      <!-- زر البرجر -->
-      <button class="laf-burger" type="button" aria-label="القائمة">
-        ☰
-      </button>
+      <button class="laf-burger" type="button" aria-label="القائمة">☰</button>
     </div>
   </div>
 </header>
-
-<!-- خلفية التعتيم عند فتح القائمة -->
 <div class="laf-overlay" id="menuOverlay"></div>
 
 <script>
@@ -219,11 +190,7 @@
     overlay.classList.toggle('show', show);
   }
 
-  burger.addEventListener('click', () => {
-    const open = !nav.classList.contains('show');
-    toggleMenu(open);
-  });
-
+  burger.addEventListener('click', () => toggleMenu(!nav.classList.contains('show')));
   overlay.addEventListener('click', () => toggleMenu(false));
 })();
 </script>

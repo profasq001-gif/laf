@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>الحجوزات | لاف</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b0b0f; --fg:#fff; --muted:rgba(255,255,255,.75);
+      --accent1:#7CF7D4; --accent2:#7AA8FF; --accent3:#E0A1FF;
+      --stroke:rgba(255,255,255,.1);
+      --card:rgba(255,255,255,.06);
+    }
+    body {
+      margin:0;
+      font-family:'Tajawal',sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+    .container {
+      max-width:800px;
+      margin:auto;
+      padding:2rem 1rem;
+      text-align:center;
+    }
+    h1 {
+      font-weight:800;
+      font-size:clamp(2rem,5vw,3rem);
+      background:linear-gradient(135deg,var(--accent1),var(--accent2),var(--accent3));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:1rem;
+    }
+    p { color:var(--muted); margin-bottom:2rem; font-size:1.1rem; }
+
+    form {
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      padding:1.5rem;
+      display:grid;
+      gap:1rem;
+    }
+    input, select, textarea {
+      width:100%;
+      padding:.9rem;
+      border:none;
+      border-radius:10px;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:1rem;
+      font-family:inherit;
+    }
+    button {
+      background:linear-gradient(135deg,var(--accent1),var(--accent2) 50%,var(--accent3));
+      border:none;
+      padding:.9rem 1.3rem;
+      font-weight:800;
+      border-radius:12px;
+      cursor:pointer;
+      color:#0b0b0f;
+      box-shadow:0 6px 18px rgba(122,168,255,.3);
+    }
+    a.back {
+      display:inline-block;
+      margin-top:1.5rem;
+      color:var(--fg);
+      text-decoration:none;
+      border:1px solid var(--stroke);
+      border-radius:12px;
+      padding:.7rem 1.2rem;
+    }
+    a.back:hover { background:rgba(255,255,255,.1); }
+  </style>
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <div class="container">
+    <h1>حجز موعد</h1>
+    <p>اختر الوقت المناسب لزيارة فريق <strong>لاف</strong> أو لمناقشة مشروعك الإبداعي معنا.</p>
+
+    <form id="bookingForm">
+      <input type="text" name="name" placeholder="الاسم الكامل" required>
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+      <select name="service" required>
+        <option value="">اختر نوع الخدمة</option>
+        <option>تصميم مجسّم إبداعي</option>
+        <option>استشارة فنية</option>
+        <option>زيارة المعرض</option>
+      </select>
+      <input type="date" name="date" required>
+      <input type="time" name="time" required>
+      <textarea name="notes" placeholder="ملاحظات إضافية (اختياري)" rows="4"></textarea>
+      <button type="submit">تأكيد الحجز</button>
+    </form>
+
+    <a href="index.html" class="back">⬅ العودة للرئيسية</a>
+  </div>
+
+  <div id="app-footer"></div>
+
+  <script>
+  // تحميل الشريطين
+  (async()=>{
+    async function inject(targetId, url){
+      const target=document.getElementById(targetId);
+      if(!target) return;
+      const res=await fetch(url);
+      if(res.ok) target.innerHTML=await res.text();
+    }
+    await Promise.all([
+      inject('app-header','./header.html'),
+      inject('app-footer','./footer.html')
+    ]);
+  })();
+
+  // معالجة النموذج
+  const form=document.getElementById('bookingForm');
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    alert('✅ تم حجز موعدك بنجاح! سنتواصل معك قريباً.');
+    form.reset();
+  });
+  </script>
+</body>
+</html>
